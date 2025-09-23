@@ -6,7 +6,7 @@ Drag & Drop project for understanding Typescript and decorators.
 Clone the project  
 
 ~~~bash  
-  git clone https://BabaykaBo/drag_and_drop.git
+  git clone https://github.com/BabaykaBo/drag_and_drop.git
 ~~~
 
 Go to the project directory  
