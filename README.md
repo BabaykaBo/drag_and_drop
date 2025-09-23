@@ -6,13 +6,13 @@ Drag & Drop project for understanding Typescript and decorators.
 Clone the project  
 
 ~~~bash  
-  git clone https://link-to-project
+  git clone https://BabaykaBo/drag_and_drop.git
 ~~~
 
 Go to the project directory  
 
 ~~~bash  
-  cd my-project
+  cd drag_and_drop
 ~~~
 
 Install dependencies  
