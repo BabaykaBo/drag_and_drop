@@ -1,25 +1,19 @@
 import { projectState } from './project_state.js';
 import { Project, ProjectStatus } from './project.js';
+import { Component } from './component.js';
 
 type ProjectType = 'active' | 'finished';
 type ProjectListIdType = `${ProjectType}-projects-list`;
 type ProjectIdType = `${ProjectType}-projects`;
 
-export class ProjectList {
-    private readonly templateElement: HTMLTemplateElement;
-    private readonly hostElement: HTMLDivElement;
-    private readonly element: HTMLElement;
+export class ProjectList extends Component<HTMLElement, HTMLDivElement> {
     private type: ProjectType;
     private projects: Project[] = [];
 
     constructor(type: ProjectType) {
-        this.templateElement = document.getElementById('project-list')! as HTMLTemplateElement;
-        this.hostElement = document.getElementById('app')! as HTMLDivElement;
+        super('project-list', 'app');
+
         this.type = type;
-
-        const importedNode = document.importNode(this.templateElement.content, true);
-        this.element = importedNode.firstElementChild as HTMLElement;
-
         const id: ProjectIdType = `${this.type}-projects`;
         this.element.id = id;
 
@@ -39,12 +33,13 @@ export class ProjectList {
             this.renderProjects();
         });
 
-        this.attach();
-
+        this.attach('beforeend');
     }
 
     private renderProjects() {
-        const listEl = document.getElementById(`${this.type}-projects-list`);
+        const listEl = document.getElementById(`${this.type}-projects-list`) as HTMLUListElement;
+        listEl.innerHTML = '';
+
         for (const project of this.projects) {
             const listItem = document.createElement('li');
             listItem.textContent = project.title;
@@ -56,9 +51,5 @@ export class ProjectList {
         const listId: ProjectListIdType = `${this.type}-projects-list`;
         this.element.querySelector('ul')!.id = listId;
         this.element.querySelector('h2')!.textContent = this.type.toUpperCase() + ' PROJECTS';
-    }
-
-    private attach() {
-        this.hostElement.insertAdjacentElement('beforeend', this.element);
     }
 }

@@ -1,30 +1,22 @@
 import { validate, Validatable } from './validation.js';
 import { autobind } from './decorators.js';
 import { projectState } from './project_state.js';
+import { Component } from './component.js';
 
-
-export class ProjectInput {
-    private readonly templateElement: HTMLTemplateElement;
-    private readonly hostElement: HTMLDivElement;
-    private readonly element: HTMLFormElement;
+export class ProjectInput extends Component<HTMLFormElement, HTMLDivElement> {
     private readonly titleInputElement: HTMLInputElement;
     private readonly descriptionInputElement: HTMLInputElement;
     private readonly peopleInputElement: HTMLInputElement;
 
     constructor() {
-        this.templateElement = document.getElementById('project-input')! as HTMLTemplateElement;
-        this.hostElement = document.getElementById('app')! as HTMLDivElement;
-
-        const importedNode = document.importNode(this.templateElement.content, true);
-        this.element = importedNode.firstElementChild as HTMLFormElement;
-        this.element.id = 'user-input';
+        super('project-input', 'app');
 
         this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
         this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement;
         this.peopleInputElement = this.element.querySelector('#people') as HTMLInputElement;
 
         this.configure();
-        this.attach();
+        this.attach('afterbegin');
     }
 
     private configure() {
@@ -87,9 +79,5 @@ export class ProjectInput {
         this.titleInputElement.value = '';
         this.descriptionInputElement.value = '';
         this.peopleInputElement.value = '';
-    }
-
-    private attach() {
-        this.hostElement.insertAdjacentElement('afterbegin', this.element);
     }
 }
