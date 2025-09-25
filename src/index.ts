@@ -1,3 +1,39 @@
+interface Validatable {
+    value: string | number;
+    required?: boolean;
+    minLength?: number;
+    maxLength?: number;
+    min?: number;
+    max?: number;
+}
+
+function validate(input: Validatable): boolean {
+    const valueLength = input.value.toString().trim().length;
+    if (input.required && valueLength === 0) {
+        return false;
+    }
+
+    if (typeof input.value === 'string') {
+        if (input.minLength != null && valueLength < input.minLength) {
+            return false;
+        }
+
+        if (input.maxLength != null && valueLength > input.maxLength) {
+            return false;
+        }
+    } else if (typeof input.value === 'number') {
+        if (input.min != null && input.value < input.min) {
+            return false;
+        }
+
+        if (input.max != null && input.value > input.max) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 function autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
     const adjDescriptor: PropertyDescriptor = {
@@ -59,9 +95,30 @@ class ProjectInput {
         const enteredDescription = this.descriptionInputElement.value.trim();
         const enteredPeople = +this.peopleInputElement.value;
 
-        if (enteredTitle.length === 0
-            || enteredDescription.length === 0
-            || enteredPeople <= 0) {
+        const validatableTitle: Validatable = {
+            value: enteredTitle,
+            required: true,
+            minLength: 5,
+            maxLength: 100,
+        }
+
+        const validatableDescription: Validatable = {
+            value: enteredDescription,
+            required: true,
+            minLength: 5,
+            maxLength: 500,
+        }
+
+        const validatablePeople: Validatable = {
+            value: enteredPeople,
+            required: true,
+            min: 1,
+            max: 10
+        }
+
+        if (!validate(validatableTitle)
+            || !validate(validatableDescription)
+            || !validate(validatablePeople)) {
             alert('Invalid data!');
             return;
         }
