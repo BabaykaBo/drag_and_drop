@@ -1,6 +1,7 @@
 import { projectState } from './project_state.js';
 import { Project, ProjectStatus } from './project.js';
 import { Component } from './component.js';
+import { ProjectItem } from './project_item.js';
 
 type ProjectType = 'active' | 'finished';
 type ProjectListIdType = `${ProjectType}-projects-list`;
@@ -34,20 +35,20 @@ export class ProjectList extends Component<HTMLElement, HTMLDivElement> {
         this.attach('beforeend');
     }
 
+    protected renderContent() {
+        const listId: ProjectListIdType = `${this.type}-projects-list`;
+        this.element.querySelector('ul')!.id = listId;
+        this.element.querySelector('h2')!.textContent = this.type.toUpperCase() + ' PROJECTS';
+    }
+
+    protected configure() { };
+
     private renderProjects() {
         const listEl = document.getElementById(`${this.type}-projects-list`) as HTMLUListElement;
         listEl.innerHTML = '';
 
         for (const project of this.projects) {
-            const listItem = document.createElement('li');
-            listItem.textContent = project.title;
-            listEl?.appendChild(listItem);
+            new ProjectItem(listEl.id, project);
         }
-    }
-
-    private renderContent() {
-        const listId: ProjectListIdType = `${this.type}-projects-list`;
-        this.element.querySelector('ul')!.id = listId;
-        this.element.querySelector('h2')!.textContent = this.type.toUpperCase() + ' PROJECTS';
     }
 }

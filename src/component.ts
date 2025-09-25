@@ -15,4 +15,7 @@ export abstract class Component<T extends HTMLElement, U extends HTMLElement> {
     protected attach(where: InsertPosition) {
         this.hostElement.insertAdjacentElement(where, this.element);
     }
+
+    protected abstract configure(): void;
+    protected abstract renderContent(): void;
 }

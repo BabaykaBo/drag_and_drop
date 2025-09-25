@@ -9,7 +9,7 @@ export class ProjectInput extends Component<HTMLFormElement, HTMLDivElement> {
     private readonly peopleInputElement: HTMLInputElement;
 
     constructor() {
-        super('project-input', 'app');
+        super('project-input', 'app', 'user-input');
 
         this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
         this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement;
@@ -19,9 +19,11 @@ export class ProjectInput extends Component<HTMLFormElement, HTMLDivElement> {
         this.attach('afterbegin');
     }
 
-    private configure() {
+    protected configure() {
         this.element.addEventListener('submit', this.submitHandler)
     }
+
+    protected renderContent() { }
 
     @autobind
     private submitHandler(event: Event) {
@@ -29,7 +31,6 @@ export class ProjectInput extends Component<HTMLFormElement, HTMLDivElement> {
 
         const userInput = this.gatherUserInput();
         if (Array.isArray(userInput)) {
-            console.log(userInput);
             projectState.addProject({
                 title: userInput[0],
                 description: userInput[1],
@@ -80,4 +81,5 @@ export class ProjectInput extends Component<HTMLFormElement, HTMLDivElement> {
         this.descriptionInputElement.value = '';
         this.peopleInputElement.value = '';
     }
+
 }
