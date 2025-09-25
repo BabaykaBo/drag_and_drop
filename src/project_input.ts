@@ -1,5 +1,7 @@
 import { validate, Validatable } from './validation.js';
 import { autobind } from './decorators.js';
+import { projectState } from './project_state.js';
+
 
 export class ProjectInput {
     private readonly templateElement: HTMLTemplateElement;
@@ -36,6 +38,11 @@ export class ProjectInput {
         const userInput = this.gatherUserInput();
         if (Array.isArray(userInput)) {
             console.log(userInput);
+            projectState.addProject({
+                title: userInput[0],
+                description: userInput[1],
+                numberOfPeople: userInput[2]
+            });
             this.clearInputs();
         }
     }
@@ -48,7 +55,7 @@ export class ProjectInput {
         const validatableTitle: Validatable = {
             value: enteredTitle,
             required: true,
-            minLength: 5,
+            minLength: 2,
             maxLength: 100,
         }
 
