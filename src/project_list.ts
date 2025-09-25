@@ -1,4 +1,5 @@
 import { projectState } from './project_state.js';
+import { Project } from './project.js';
 
 type ProjectType = 'active' | 'finished';
 type ProjectListIdType = `${ProjectType}-projects-list`;
@@ -9,7 +10,7 @@ export class ProjectList {
     private readonly hostElement: HTMLDivElement;
     private readonly element: HTMLElement;
     private type: ProjectType;
-    private projects: any[] = [];
+    private projects: Project[] = [];
 
     constructor(type: ProjectType) {
         this.templateElement = document.getElementById('project-list')! as HTMLTemplateElement;
@@ -24,7 +25,7 @@ export class ProjectList {
 
         this.renderContent();
 
-        projectState.addListener((projects: any[]) => {
+        projectState.addListener((projects: Project[]) => {
             this.projects = projects;
             this.renderProjects();
         });
@@ -45,7 +46,7 @@ export class ProjectList {
     private renderContent() {
         const listId: ProjectListIdType = `${this.type}-projects-list`;
         this.element.querySelector('ul')!.id = listId;
-        this.element.querySelector('h2')!.textContent = this.type.toUpperCase() + 'PROJECTS';
+        this.element.querySelector('h2')!.textContent = this.type.toUpperCase() + ' PROJECTS';
     }
 
     private attach() {

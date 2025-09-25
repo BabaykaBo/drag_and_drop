@@ -1,8 +1,10 @@
+import { Project } from "./project.js";
 type ProjectData = { title: string, description: string, numberOfPeople: number };
+type Listener = (items: Project[]) => void;
 
 class ProjectState {
-    private listeners: any[] = [];
-    private projects: any[] = [];
+    private listeners: Listener[] = [];
+    private projects: Project[] = [];
     private static instance: ProjectState;
 
     static getInstance() {
@@ -14,10 +16,12 @@ class ProjectState {
     }
 
     addProject(projectData: ProjectData) {
-        const newProject = {
-            id: Math.random().toString(),
-            ...projectData
-        }
+        const newProject = new Project(
+            Math.random().toString(),
+            projectData.title,
+            projectData.description,
+            projectData.numberOfPeople
+        );
 
         this.projects.push(newProject);
 
@@ -26,7 +30,7 @@ class ProjectState {
         }
     }
 
-    addListener(listenerFn: Function) {
+    addListener(listenerFn: Listener) {
         this.listeners.push(listenerFn);
     }
 }
