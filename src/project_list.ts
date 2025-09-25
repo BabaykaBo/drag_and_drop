@@ -1,5 +1,5 @@
 import { projectState } from './project_state.js';
-import { Project } from './project.js';
+import { Project, ProjectStatus } from './project.js';
 
 type ProjectType = 'active' | 'finished';
 type ProjectListIdType = `${ProjectType}-projects-list`;
@@ -26,7 +26,16 @@ export class ProjectList {
         this.renderContent();
 
         projectState.addListener((projects: Project[]) => {
-            this.projects = projects;
+            const filteredProjects = projects.filter(prj => {
+                if (this.type === 'active') {
+                    return prj.status === ProjectStatus.Active;
+                } else if (this.type === 'finished') {
+                    return prj.status === ProjectStatus.Finished;
+                }
+
+                return false;
+            });
+            this.projects = filteredProjects;
             this.renderProjects();
         });
 
