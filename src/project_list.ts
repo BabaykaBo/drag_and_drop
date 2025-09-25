@@ -11,12 +11,10 @@ export class ProjectList extends Component<HTMLElement, HTMLDivElement> {
     private projects: Project[] = [];
 
     constructor(type: ProjectType) {
-        super('project-list', 'app');
+        const id: ProjectIdType = `${type}-projects`;
+        super('project-list', 'app', id);
 
         this.type = type;
-        const id: ProjectIdType = `${this.type}-projects`;
-        this.element.id = id;
-
         this.renderContent();
 
         projectState.addListener((projects: Project[]) => {
