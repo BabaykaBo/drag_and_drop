@@ -27,15 +27,8 @@ Compile TS files
 tsc
 ~~~
 
-Use index.html
+Open a server for index.html (For example, Live Server in Vscode)
 
-## Contributing  
-
-Contributions are always welcome!  
-
-See `contributing.md` for ways to get started.  
-
-Please adhere to this project's `code of conduct`.  
 
 ## License  
 
