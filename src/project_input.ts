@@ -9,14 +9,11 @@ export class ProjectInput extends Component<HTMLFormElement, HTMLDivElement> {
     private readonly peopleInputElement: HTMLInputElement;
 
     constructor() {
-        super('project-input', 'app', 'user-input');
+        super('project-input', 'app', 'afterbegin', 'user-input');
 
         this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
         this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement;
         this.peopleInputElement = this.element.querySelector('#people') as HTMLInputElement;
-
-        this.configure();
-        this.attach('afterbegin');
     }
 
     protected configure() {

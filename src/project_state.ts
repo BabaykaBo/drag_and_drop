@@ -1,4 +1,4 @@
-import { Project } from "./project.js";
+import { Project, ProjectStatus } from "./project.js";
 type ProjectData = { title: string, description: string, numberOfPeople: number };
 type Listener = (items: Project[]) => void;
 
@@ -32,6 +32,20 @@ class ProjectState {
 
     addListener(listenerFn: Listener) {
         this.listeners.push(listenerFn);
+    }
+
+    moveProject(projectId: string, newStatus: ProjectStatus) {
+        const project = this.projects.find(prj => prj.id === projectId);
+        if (project && project.status !== newStatus) {
+            project.status = newStatus;
+            this.updateListeners();
+        }
+    }
+
+    private updateListeners() {
+        for (const listenerFn of this.listeners) {
+            listenerFn(this.projects.slice());
+        }
     }
 }
 
