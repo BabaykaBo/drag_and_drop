@@ -1,6 +1,6 @@
 import { Project, ProjectStatus } from "./project.js";
-type ProjectData = { title: string, description: string, numberOfPeople: number };
-type Listener = (items: Project[]) => void;
+export type ProjectData = { title: string, description: string, numberOfPeople: number };
+export type Listener = (items: Project[]) => void;
 
 class ProjectState {
     private listeners: Listener[] = [];
