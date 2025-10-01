@@ -1,35 +1,71 @@
 # Drag & Drop
-Drag & Drop project for understanding Typescript and decorators.  
+Drag & Drop project for understanding **TypeScript** and **decorators**.  
 
-## Run Locally  
+## 🚀 Run Locally  
 
-Clone the project  
+Clone project:  
 
-~~~bash  
-  git clone https://github.com/BabaykaBo/drag_and_drop.git
-~~~
+```bash
+git clone https://github.com/BabaykaBo/drag_and_drop.git
+```
 
-Go to the project directory  
+Go to folder:  
 
-~~~bash  
-  cd drag_and_drop
-~~~
+```bash
+cd drag_and_drop
+```
 
-Install dependencies  
+Install dependencies:  
 
-~~~bash  
+```bash
 npm install
-~~~
+```
 
-Compile TS files
+### 📦 Commands
 
-~~~bash  
-tsc
-~~~
+**Run dev:**
+```bash
+npm run dev
+```
 
-Open a server for index.html (For example, Live Server in Vscode)
+**Build:**
+```bash
+npm run build
+```
 
+**Build preview:**
+```bash
+npm run preview
+```
 
-## License  
+**Lint:**
+```bash
+npm run lint
+```
+
+## 📂 Project Structure  
+
+```
+├── src
+│   ├── component.ts
+│   ├── decorators.ts
+│   ├── drag_drop.ts
+│   ├── index.ts
+│   ├── project.ts
+│   ├── project_input.ts
+│   ├── project_item.ts
+│   ├── project_list.ts
+│   ├── project_state.ts
+│   └── validation.ts
+├── index.html
+├── app.css
+├── tsconfig.json
+├── vite.config.ts
+└── dist/   (after `build`)
+```
+
+---
+
+## 📜 License  
 
 [MIT](https://choosealicense.com/licenses/mit/)
